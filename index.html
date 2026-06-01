@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenTech+ | MadeInSenegal - Solutions Technologiques & Innovation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="./main-robotique.png" type="image/x-icon">
+    <style>
+        /* --- CONFIGURATION GLOBALE ET THÈMES --- */
+        :root {
+            --bg-color: #030a16;          /* Bleu Tech Ultra Profond */
+            --card-bg: #07152e;           /* Bleu Tech Intermédiaire */
+            --navbar-bg: rgba(3, 10, 22, 0.85);
+            --text-color: #ffffff;        /* Blanc Foudre Pur */
+            --text-muted: #8ea1bf;        /* Gris-Bleu atténué */
+            --primary-color: #0055ff;     /* Bleu Électrique */
+            --accent-color: #00d2ff;      /* Bleu Foudre Cyan */
+            --border-color: rgba(0, 85, 255, 0.15);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            --input-bg: #0c1f3d;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f7fc;          /* Blanc Foudre Doux */
+            --card-bg: #ffffff;           /* Blanc Pur */
+            --navbar-bg: rgba(244, 247, 252, 0.85);
+            --text-color: #07152e;        /* Bleu Sombre pour texte */
+            --text-muted: #516385;
+            --primary-color: #0044cc;
+            --accent-color: #0099ff;
+            --border-color: rgba(0, 68, 204, 0.1);
+            --shadow: 0 15px 35px rgba(0, 68, 204, 0.06);
+            --input-bg: #e2e8f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Urbanist', sans-serif;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        border-color 0.4s ease, 
+                        box-shadow 0.4s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            background: var(--navbar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .plus {
+            color: var(--accent-color);
+            font-weight: 800;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-top: -2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-item a {
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        /* CORRECTION ET DESIGN DU DROPDOWN LANGUE */
+        .lang-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 0.8rem;
+        }
+
+        .lang-container i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .lang-dropdown {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            outline: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding-right: 0.5rem;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Flèche personnalisée pour le select */
+        .lang-container::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 0.8rem;
+            pointer-events: none;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Style des options pour assurer la cohérence dans les deux thèmes */
+        .lang-dropdown option {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 10px;
+        }
+
+        .theme-toggle-btn {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0, 85, 255, 0.2);
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .menu-hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            background: radial-gradient(circle at 85% 30%, rgba(0, 85, 255, 0.15), transparent 60%);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        .hero .lightning-text {
+            color: var(--accent-color);
+            text-shadow: 0 0 30px rgba(0, 210, 255, 0.35);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+        }
+
+        .btn-main {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 1rem 2.2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(0, 85, 255, 0.3);
+            transform: translateY(0);
+        }
+
+        .btn-main:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+        }
+
+        /* --- SECTION COMPOSANTS GÉNÉRIQUES --- */
+        .section-padding {
+            padding: 7rem 8% 5rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 12px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- SERVICES SECTION --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 210, 255, 0.4);
+        }
+
+        .card-icon-box {
+            width: 65px;
+            height: 65px;
+            background: rgba(0, 85, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .card-icon-box i {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* --- BLOG SECTION (NOUVEAU) --- */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .main-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-post-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+        }
+
+        .blog-img-wrapper {
+            flex: 1;
+            min-height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Motifs de secours esthétiques via gradients CSS */
+        .bg-blog1 { background-image: linear-gradient(135deg, #001f4d 0%, #0055ff 100%); }
+        .bg-blog2 { background-image: linear-gradient(135deg, #0b001a 0%, #8800ff 100%); }
+
+        .blog-content {
+            flex: 1.3;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-content p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more-link {
+            font-weight: 700;
+            color: var(--primary-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Sidebar mini articles */
+        .sidebar-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mini-post-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .mini-post-card h4 {
+            font-size: 1.15rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* --- EVENTS SECTION (NOUVEAU) --- */
+        .events-table-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .events-table th, .events-table td {
+            padding: 1.5rem 2rem;
+        }
+
+        .events-table th {
+            background: rgba(0, 85, 255, 0.1);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .events-table tr:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 85, 255, 0.08);
+        }
+
+        .events-table tr:hover {
+            background: rgba(0, 210, 255, 0.02);
+        }
+
+        .event-date-badge {
+            display: inline-block;
+            background: rgba(0, 85, 255, 0.15);
+            color: var(--text-color);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .status-pill {
+            display: inline-block;
+            background: #00cc66;
+            color: #ffffff;
+            padding: 0.25rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #020610;
+            color: #8ea1bf;
+            padding: 5rem 8% 2rem 8%;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h3 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h4 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #0b1528;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 1024px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 73px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 73px);
+                background: var(--bg-color);
+                flex-direction: column;
+                padding: 3rem;
+                gap: 2rem;
+                text-align: center;
+                transition: left 0.4s ease;
+                border-top: 1px solid var(--border-color);
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .menu-hamburger {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .blog-post-card {
+                flex-direction: column;
+            }
+            .events-table th:nth-child(4), .events-table td:nth-child(4) {
+                display: none; /* Cache les thématiques sur petits écrans */
+            }
+        }
+
+        /* Support pour l'écriture de droite à gauche (RTL) */
+        [dir="rtl"] {
+            text-align: right;
+        }
+        [dir="rtl"] .nav-item a::after {
+            left: auto;
+            right: 0;
+        }
+        [dir="rtl"] .lang-container i {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+        [dir="rtl"] .lang-container::after {
+            right: auto;
+            left: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo" onclick="window.scrollTo(0,0)">
+            <span class="logo-text">SenTech<span class="plus">+</span></span>
+            <span class="logo-sub">MadeInSenegal</span>
+        </div>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="#home" data-lang="nav-home">Accueil</a></li>
+            <li class="nav-item"><a href="#services" data-lang="nav-services">Services</a></li>
+            <li class="nav-item"><a href="#blog" data-lang="nav-blog">Blog Tech</a></li>
+            <li class="nav-item"><a href="#events" data-lang="nav-events">Évènements</a></li>
+        </ul>
+
+        <div class="nav-controls">
+            <div class="lang-container">
+                <i class="fas fa-globe"></i>
+                <select id="langSelect" class="lang-dropdown">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
+                    <option value="ja">日本語</option>
+                    <option value="ar">العربية</option>
+                </select>
+            </div>
+
+            <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Changer de thème">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </button>
+
+            <div class="menu-hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-lang="hero-title">L'Écosystème Numérique de Demain, <br><span class="lightning-text">Propulsé au Sénégal</span></h1>
+            <p data-lang="hero-desc">Nous forgeons des architectures applicatives de pointe, des intelligences artificielles sur mesure et des dispositifs cyber-résilients d'excellence internationale.</p>
+            <a href="#services" class="btn-main" data-lang="hero-btn">Explorer nos solutions</a>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="section-header">
+            <h2 class="section-title" data-lang="services-title">Domaines d'Expertise Spécialisée</h2>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="card-icon-box"><i class="fas fa-layer-group"></i></div>
+                <h3 data-lang="srv1-title">Ingénierie Logicielle & Web</h3>
+                <p data-lang="srv1-desc">Architecture, maintenance évolutive et refonte complète d'applications d'entreprise distribuées, de services mobiles natifs et de plateformes Web à haute disponibilité.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon-box"><i class="fas fa-brain"></i></div>
+                <h3 data-lang="srv2-title">Intelligence Artificielle</h3>
+                <p data-lang="srv2-desc">Modélisation de réseaux de neurones complexes, intégration de modèles de langage (LLM) de pointe et solutions analytiques de Machine Learning appliquées aux réalités économiques.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon-box"><i class="fas fa-shield-halved"></i></div>
+                <h3 data-lang="srv3-title">Cybersécurité Avancée</h3>
+                <p data-lang="srv3-desc">Audits de sécurité complets, tests d'intrusion (Penetration Testing), implémentation de protocoles de défense robustes et stratégies avancées de gouvernance de données.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon-box"><i class="fas fa-chart-line"></i></div>
+                <h3 data-lang="srv4-title">Finance Tech & Crypto</h3>
+                <p data-lang="srv4-desc">Développement d'infrastructures de paiement numériques unifiées, intégration de smart contracts et solutions financières basées sur la technologie Blockchain.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="card-icon-box"><i class="fas fa-user-graduate"></i></div>
+                <h3 data-lang="srv5-title">Formation Informatique</h3>
+                <p data-lang="srv5-desc">Programmes intensifs de montée en compétences pour les directions informatiques d'entreprises sur les technologies cloud-natives et l'ingénierie moderne.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section-padding" style="background: rgba(0, 85, 255, 0.02);">
+        <div class="section-header">
+            <h2 class="section-title" data-lang="blog-title">Blog Tech & Perspectives Sénégal</h2>
+        </div>
+
+        <div class="blog-container">
+            <div class="main-articles">
+                <div class="blog-post-card">
+                    <div class="blog-img-wrapper bg-blog1"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span data-lang="blog1-cat">Intelligence Artificielle</span>
+                            <span>•</span>
+                            <span>01 Juin 2026</span>
+                        </div>
+                        <h3 data-lang="blog1-title">L'IA Agricole : Révolutionner la Vallée du Fleuve Sénégal</h3>
+                        <p data-lang="blog1-desc">Une analyse technique de l'intégration de capteurs connectés et d'algorithmes prédictifs pour optimiser l'irrigation et la gestion de la riziculture.</p>
+                        <a href="#blog" class="read-more-link"><span data-lang="read-more">Lire l'article</span> <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="blog-post-card">
+                    <div class="blog-img-wrapper bg-blog2"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span data-lang="blog2-cat">Souveraineté Numérique</span>
+                            <span>•</span>
+                            <span>15 Mai 2026</span>
+                        </div>
+                        <h3 data-lang="blog2-title">Infrastructures Cloud Locaux : Les Enjeux Nationaux</h3>
+                        <p data-lang="blog2-desc">Pourquoi l'hébergement de proximité et la maîtrise totale des infrastructures physiques s'imposent comme la clé de voûte de notre indépendance technologique.</p>
+                        <a href="#blog" class="read-more-link"><span data-lang="read-more">Lire l'article</span> <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-articles">
+                <div class="mini-post-card">
+                    <span class="blog-meta" data-lang="side1-cat">FinTech</span>
+                    <h4 data-lang="side1-title">L'essor des paiements cross-border en Afrique de l'Ouest.</h4>
+                    <a href="#blog" class="read-more-link" style="font-size:0.9rem;"><span data-lang="read-more">Lire</span></a>
+                </div>
+                <div class="mini-post-card">
+                    <span class="blog-meta" data-lang="side2-cat">Cybersécurité</span>
+                    <h4 data-lang="side2-title">Protection des PME sénégalaises face aux ransomwares récents.</h4>
+                    <a href="#blog" class="read-more-link" style="font-size:0.9rem;"><span data-lang="read-more">Lire</span></a>
+                </div>
+                <div class="mini-post-card">
+                    <span class="blog-meta" data-lang="side3-cat">Écosystème</span>
+                    <h4 data-lang="side3-title">Dakar Tech Hub : Cartographie des investissements de l'année.</h4>
+                    <a href="#blog" class="read-more-link" style="font-size:0.9rem;"><span data-lang="read-more">Lire</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="section-padding">
+        <div class="section-header">
+            <h2 class="section-title" data-lang="events-title">Évènements Majeurs Tech de l'Année 2026</h2>
+        </div>
+
+        <div class="events-table-wrapper">
+            <table class="events-table">
+                <thead>
+                    <tr>
+                        <th data-lang="th-date">Période</th>
+                        <th data-lang="th-event">Évènement</th>
+                        <th data-lang="th-location">Lieu</th>
+                        <th data-lang="th-topic">Thématique Centrale</th>
+                        <th data-lang="th-status">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="event-date-badge">Juillet 2026</span></td>
+                        <td style="font-weight: 700;">Senegal Tech Summit</td>
+                        <td>CICAD, Diamniadio</td>
+                        <td data-lang="ev1-topic">Convergence Technologique & Investissements Emergents</td>
+                        <td><span class="status-pill">Ouvert</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="event-date-badge">Septembre 2026</span></td>
+                        <td style="font-weight: 700;">Dakar Digital Days</td>
+                        <td>Place du Souvenir, Dakar</td>
+                        <td data-lang="ev2-topic">Créativité Numérique, Web3 et Intelligence Artificielle collective</td>
+                        <td><span class="status-pill">Ouvert</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="event-date-badge">Novembre 2026</span></td>
+                        <td style="font-weight: 700;">Africa CyberShield Forum</td>
+                        <td>Hôtel King Fahd Palace, Dakar</td>
+                        <td data-lang="ev3-topic">Gouvernance des Données, Cloud Security & Souveraineté Africaine</td>
+                        <td><span class="status-pill">Bientôt</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="event-date-badge">Décembre 2026</span></td>
+                        <td style="font-weight: 700;">West Africa FinTech Forum</td>
+                        <td>Dakar, Sénégal</td>
+                        <td data-lang="ev4-topic">Régulation des Crypto-actifs, Inclusion Financière et Mobile Banking</td>
+                        <td><span class="status-pill">Planifié</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>SenTech+</h3>
+                <p>L'excellence numérique ancrée au Sénégal, rayonnant à l'international.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#events">Évènements</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> jeanpaulawson98@gmail.com</li>
+                    <li><i class="fab fa-whatsapp"></i> +221 705 969 383</li>
+                    <li><i class="fas fa-location-dot"></i> Technopole, Dakar, Sénégal</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SenTech+ MadeInSenegal. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. SYSTEME DE TRADUCTION INTERNATIONALE (7 LANGUES)
+        const dictionary = {
+            fr: {
+                "nav-home": "Accueil", "nav-services": "Services", "nav-blog": "Blog Tech", "nav-events": "Évènements",
+                "hero-title": "L'Écosystème Numérique de Demain, <br><span class='lightning-text'>Propulsé au Sénégal</span>",
+                "hero-desc": "Nous forgeons des architectures applicatives de pointe, des intelligences artificielles sur mesure et des dispositifs cyber-résilients d'excellence internationale.",
+                "hero-btn": "Explorer nos solutions",
+                "services-title": "Domaines d'Expertise Spécialisée",
+                "srv1-title": "Ingénierie Logicielle & Web", "srv1-desc": "Architecture, maintenance évolutive et refonte complète d'applications d'entreprise distribuées, de services mobiles natifs et de plateformes Web à haute availability.",
+                "srv2-title": "Intelligence Artificielle", "srv2-desc": "Modélisation de réseaux de neurones complexes, intégration de modèles de langage (LLM) de pointe et solutions analytiques de Machine Learning appliquées aux réalités économiques.",
+                "srv3-title": "Cybersécurité Avancée", "srv3-desc": "Audits de sécurité complets, tests d'intrusion (Penetration Testing), implémentation de protocoles de défense robustes et stratégies avancées de gouvernance de données.",
+                "srv4-title": "Finance Tech & Crypto", "srv4-desc": "Développement d'infrastructures de paiement numériques unifiées, intégration de smart contracts et solutions financières basées sur la technologie Blockchain.",
+                "srv5-title": "Formation Informatique", "srv5-desc": "Programmes intensifs de montée en compétences pour les directions informatiques d'entreprises sur les technologies cloud-natives et l'ingénierie moderne.",
+                "blog-title": "Blog Tech & Perspectives Sénégal",
+                "blog1-cat": "Intelligence Artificielle", "blog1-title": "L'IA Agricole : Révolutionner la Vallée du Fleuve Sénégal", "blog1-desc": "Une analyse technique de l'intégration de capteurs connectés et d'algorithmes prédictifs pour optimiser l'irrigation et la gestion de la riziculture.",
+                "blog2-cat": "Souveraineté Numérique", "blog2-title": "Infrastructures Cloud Locaux : Les Enjeux Nationaux", "blog2-desc": "Pourquoi l'hébergement de proximité et la maîtrise totale des infrastructures physiques s'imposent comme la clé de voûte de notre indépendance technologique.",
+                "side1-cat": "FinTech", "side1-title": "L'essor des paiements cross-border en Afrique de l'Ouest.",
+                "side2-cat": "Cybersécurité", "side2-title": "Protection des PME sénégalaises face aux ransomwares récents.",
+                "side3-cat": "Écosystème", "side3-title": "Dakar Tech Hub : Cartographie des investissements de l'année.",
+                "read-more": "Lire l'article",
+                "events-title": "Évènements Majeurs Tech de l'Année 2026",
+                "th-date": "Période", "th-event": "Évènement", "th-location": "Lieu", "th-topic": "Thématique Centrale", "th-status": "Statut",
+                "ev1-topic": "Convergence Technologique & Investissements Emergents",
+                "ev2-topic": "Créativité Numérique, Web3 et Intelligence Artificielle collective",
+                "ev3-topic": "Gouvernance des Données, Cloud Security & Souveraineté Africaine",
+                "ev4-topic": "Régulation des Crypto-actifs, Inclusion Financière et Mobile Banking"
+            },
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-blog": "Tech Blog", "nav-events": "Events",
+                "hero-title": "Tomorrow's Digital Ecosystem, <br><span class='lightning-text'>Driven in Senegal</span>",
+                "hero-desc": "We build cutting-edge software architectures, tailored artificial intelligence, and cyber-resilient systems of international excellence.",
+                "hero-btn": "Explore Our Solutions",
+                "services-title": "Specialized Fields of Expertise",
+                "srv1-title": "Software & Web Engineering", "srv1-desc": "Architecture, evolutional maintenance, and complete redesign of enterprise systems, native mobile applications, and high-availability Web platforms.",
+                "srv2-title": "Artificial Intelligence", "srv2-desc": "Neural network modeling, seamless integration of advanced LLMs, and descriptive Machine Learning solutions engineered for market challenges.",
+                "srv3-title": "Advanced Cybersecurity", "srv3-desc": "Comprehensive security audits, deep penetration testing, deployment of robust defenses, and data governance frameworks.",
+                "srv4-title": "Finance Tech & Crypto", "srv4-desc": "Development of unified digital payment layers, secure smart contracts, and ecosystem architectures on Blockchain networks.",
+                "srv5-title": "IT Elite Training", "srv5-desc": "Intensive upskilling programs for enterprise IT departments focusing on cloud-native technology stacks and agile execution.",
+                "blog-title": "Tech Blog & Senegal Perspectives",
+                "blog1-cat": "Artificial Intelligence", "blog1-title": "Agricultural AI: Revolutionizing the Senegal River Valley", "blog1-desc": "A structural overview on embedding connected IoT nodes and predictive tools to scale efficiency in rice crop production.",
+                "blog2-cat": "Digital Sovereignty", "blog2-title": "Local Cloud Infrastructures: Essential National Milestones", "blog2-desc": "Why distributed edge hosting and deep physical control over parameters form the backbone of true technological independence.",
+                "side1-cat": "FinTech", "side1-title": "The structural boom of cross-border financial settlements across West Africa.",
+                "side2-cat": "Cybersecurity", "side2-title": "Mitigating advanced ransomware exposure for local enterprise architectures.",
+                "side3-cat": "Ecosystem", "side3-title": "Dakar Tech Hub: Aggregated mapping of multi-sector VC injections this fiscal year.",
+                "read-more": "Read Full Article",
+                "events-title": "Major Tech Conventions - 2026 Calendar",
+                "th-date": "Timeline", "th-event": "Summit", "th-location": "Venue", "th-topic": "Core Subject", "th-status": "Status",
+                "ev1-topic": "Technological Convergence & High-Growth Capital Allocation",
+                "ev2-topic": "Digital Creativity, Open Web3 Infrastructures, and Cooperative AI Layers",
+                "ev3-topic": "Enterprise Data Governance, Hyperscale Cloud Security, and African Continuity",
+                "ev4-topic": "Crypto Asset Policy Frameworks, Systemic Financial Inclusion, and Distributed Nodes"
+            },
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-blog": "Blog Tech", "nav-events": "Eventos",
+                "hero-title": "El Ecosistema Digital del Mañana, <br><span class='lightning-text'>Impulsado en Senegal</span>",
+                "hero-desc": "Diseñamos arquitecturas de software de vanguardia, inteligencia artificial a medida y sistemas ciber-resilientes de excelencia internacional.",
+                "hero-btn": "Explorar soluciones",
+                "services-title": "Áreas de Especialización",
+                "srv1-title": "Ingeniería de Software y Web", "srv1-desc": "Arquitectura, mantenimiento evolutivo y rediseño completo de aplicaciones empresariales distribuidas, servicios móviles nativos y plataformas web de alta disponibilidad.",
+                "srv2-title": "Inteligencia Artificial", "srv2-desc": "Modelado de redes neuronales complejas, integración de modelos de lenguaje (LLM) avanzados y soluciones analíticas de Machine Learning aplicadas.",
+                "srv3-title": "Ciberseguridad Avanzada", "srv3-desc": "Auditorías completas de seguridad, pruebas de penetración (Penetration Testing), implementación de defensas robustas y gobernanza de datos.",
+                "srv4-title": "Tecnología Financiera y Crypto", "srv4-desc": "Desarrollo de infraestructuras de pago digitales unificadas, integración de contratos inteligentes y soluciones basadas en tecnología Blockchain.",
+                "srv5-title": "Formación Informática de Élite", "srv5-desc": "Programmes intensivos de capacitación para departamentos de TI corporativos en arquitecturas nativas de la nube.",
+                "blog-title": "Blog Tecnológico y Perspectivas de Senegal",
+                "blog1-cat": "Inteligencia Artificial", "blog1-title": "IA Agrícola: Revolucionando el Valle del Río Senegal", "blog1-desc": "Un análisis técnico de la integración de sensores conectados y algoritmos predictivos para optimizar la gestión del cultivo de arroz.",
+                "blog2-cat": "Soberanía Digital", "blog2-title": "Infraestructuras Cloud Locales: Desafíos Nacionales", "blog2-desc": "Por qué el alojamiento de proximidad y el control físico de la infraestructura es clave para nuestra independencia tecnológica.",
+                "side1-cat": "FinTech", "side1-title": "El auge de los pagos transfronterizos en África Occidental.",
+                "side2-cat": "Ciberseguridad", "side2-title": "Protección de las PYMES senegalesas frente a los recientes ataques de ransomware.",
+                "side3-cat": "Ecosistema", "side3-title": "Dakar Tech Hub: Mapeo de inversiones tecnológicas del año en curso.",
+                "read-more": "Leer artículo",
+                "events-title": "Principales Eventos Tecnológicos del Año 2026",
+                "th-date": "Período", "th-event": "Evento", "th-location": "Lugar", "th-topic": "Temática Central", "th-status": "Estado",
+                "ev1-topic": "Convergencia Tecnológica e Inversiones en Mercados Emergentes",
+                "ev2-topic": "Creatividad Digital, Web3 e Inteligencia Artificial Colectiva",
+                "ev3-topic": "Gobernanza de Datos, Seguridad Cloud y Soberanía Africana",
+                "ev4-topic": "Regulación de Criptoactivos, Inclusión Financiera y Banca Móvil"
+            },
+            de: {
+                "nav-home": "Startseite", "nav-services": "Dienste", "nav-blog": "Tech Blog", "nav-events": "Events",
+                "hero-title": "Das digitale Ökosystem von morgen, <br><span class='lightning-text'>Präsentiert im Senegal</span>",
+                "hero-desc": "Wir schmieden hochmoderne Softwarearchitekturen, maßgeschneiderte künstliche Intelligenzen und cyber-resiliente Systeme von internationaler Exzellenz.",
+                "hero-btn": "Lösungen erkunden",
+                "services-title": "Spezialisierte Fachgebiete",
+                "srv1-title": "Software- und Webentwicklung", "srv1-desc": "Architektur, evolutionäre Wartung und Neugestaltung verteilter Unternehmensanwendungen, nativer mobiler Dienste und hochverfügbauer Webplattformen.",
+                "srv2-title": "Künstliche Intelligenz", "srv2-desc": "Modellierung komplexer neuronaler Netze, Integration fortschrittlicher Sprachmodelle (LLM) und analytischer Machine-Learning-Lösungen für wirtschaftliche Realitäten.",
+                "srv3-title": "Erweiterte Cybersicherheit", "srv3-desc": "Umfassende Sicherheitsaudits, Penetrationstests, Implementierung robuster Verteidigungsprotokolle und fortgeschrittene Data-Governance-Strategien.",
+                "srv4-title": "Finanztechnologie & Krypto", "srv4-desc": "Entwicklung einheitlicher digitaler Zahlungsinfrastrukturen, Integration von Smart Contracts und Finanzlösungen auf Basis der Blockchain-Technologie.",
+                "srv5-title": "Elite IT-Schulung", "srv5-desc": "Intensive Programme zur Kompetenzentwicklung für IT-Abteilungen in Unternehmen zu Cloud-Native-Technologien und moderner Softwareentwicklung.",
+                "blog-title": "Tech Blog & Perspektiven aus Senegal",
+                "blog1-cat": "Künstliche Intelligenz", "blog1-title": "Agrar-KI: Revolutionierung des Senegal-Flusstals", "blog1-desc": "Eine technische Analyse der Integration vernetzter Sensoren und prädiktiver Algorithmen zur Optimierung der Bewässerung im Reisanbau.",
+                "blog2-cat": "Digitale Souveränität", "blog2-title": "Lokale Cloud-Infrastrukturen: Nationale Prioritäten", "blog2-desc": "Warum regionales Hosting und die vollständige Kontrolle über physische Infrastrukturen der Grundstein unserer technologischen Unabhängigkeit sind.",
+                "side1-cat": "FinTech", "side1-title": "Der Boom des grenzüberschreitenden Zahlungsverkehrs in Westafrika.",
+                "side2-cat": "Cybersicherheit", "side2-title": "Schutz senegalesischer KMU vor aktuellen Ransomware-Bedrohungen.",
+                "side3-cat": "Ökosystem", "side3-title": "Dakar Tech Hub: Kartierung der Technologie-Investitionen dieses Jahres.",
+                "read-more": "Artikel lesen",
+                "events-title": "Wichtige Tech-Events des Jahres 2026",
+                "th-date": "Zeitraum", "th-event": "Event", "th-location": "Ort", "th-topic": "Zentrales Thema", "th-status": "Status",
+                "ev1-topic": "Technologische Konvergenz & Investitionen in aufstrebende Märkte",
+                "ev2-topic": "Digitale Kreativität, Web3 und kollektive künstliche Intelligenz",
+                "ev3-topic": "Data Governance, Cloud Security & afrikanische Souveränität",
+                "ev4-topic": "Regulierung von Krypto-Assets, finanzielle Inklusion und Mobile Banking"
+            },
+            zh: {
+                "nav-home": "首页", "nav-services": "核心服务", "nav-blog": "技术博客", "nav-events": "行业盛事",
+                "hero-title": "未来的数字化生态，<br><span class='lightning-text'>在塞内加尔启航</span>",
+                "hero-desc": "我们构建尖端的应用架构、量身定制的人工智能系统以及具备国际卓越水准的网络安全防御机制。",
+                "hero-btn": "探索我们的解决方案",
+                "services-title": "专业技术领域",
+                "srv1-title": "软件与网页工程", "srv1-desc": "分布式企业级应用、原生移动端服务以及高可用性网页平台的设计、演进式维护和全面重构。",
+                "srv2-title": "人工智能", "srv2-desc": "复杂神经网络建模、尖端大语言模型（LLM）集成，以及针对实际经济场景开发的机器学习分析解决方案。",
+                "srv3-title": "高级网络安全", "srv3-desc": "全面的安全审计、深度渗透测试、部署坚固的防御协议以及高级数据治理战略。",
+                "srv4-title": "金融科技与加密资产", "srv4-desc": "统一数字支付基础设施的开发、智能合约集成，以及基于区块链技术的金融生态系统构建。",
+                "srv5-title": "精英 IT 培训", "srv5-desc": "针对企业IT部门的密集型能力提升计划，专注于云原生技术栈和现代化工程实践。",
+                "blog-title": "技术博客与塞内加尔透视",
+                "blog1-cat": "人工智能", "blog1-title": "农业人工智能：变革塞内加尔河流域的农业耕作", "blog1-desc": "对集成物联网互联传感器和预测算法以优化水稻种植灌溉和管理的深度技术分析。",
+                "blog2-cat": "数字主权", "blog2-title": "本地云基础设施：国家数字主权的核心里程碑", "blog2-desc": "为何近场托管 and 对物理基础设施的绝对控制正成为我们科技独立的基础和基石。",
+                "side1-cat": "金融科技", "side1-title": "西非地区跨境数字结算与支付基础设施的蓬勃发展。",
+                "side2-cat": "网络安全", "side2-title": "帮助塞内加尔中小型企业防御最新勒索软件攻击的实践策略。",
+                "side3-cat": "生态系统", "side3-title": "达喀尔科技中心：本财政年度多板块风险投资注入地图。",
+                "read-more": "阅读全文",
+                "events-title": "2026年度科技界重大活动日程",
+                "th-date": "期间", "th-event": "活动名称", "th-location": "举办地点", "th-topic": "核心议题", "th-status": "状态",
+                "ev1-topic": "技术融合与高增长新兴市场资本配置",
+                "ev2-topic": "数字创意、Web3基础设施与协作式人工智能层",
+                "ev3-topic": "企业数据治理、超大规模云安全与非洲数字延续性",
+                "ev4-topic": "加密资产政策框架、系统性金融包容性与分布式节点"
+            },
+            ja: {
+                "nav-home": "ホーム", "nav-services": "サービス", "nav-blog": "ブログ", "nav-events": "イベント",
+                "hero-title": "次世代のデジタルエコシステム、<br><span class='lightning-text'>セネガルから世界へ</span>",
+                "hero-desc": "最先端のアプリケーションアーキテクチャ、カスタマイズされた人工知能、shadowそして国際的な卓越性を備えたサイバーレジリエンスシステムを構築します。",
+                "hero-btn": "ソリューションを見る",
+                "services-title": "専門専門分野",
+                "srv1-title": "ソフトウェア＆Webエンジニアリング", "srv1-desc": "分散型エンタープライズアプリケーション、ネイティブモバイルサービス、高可用性Webプラットフォームの設計、保守、および完全な再構築。",
+                "srv2-title": "人工知能 (AI)", "srv2-desc": "複雑なニューラルネットワークのモデリング、最先端のLLM（大規模言語モデル）の統合、市場の現実に即した機械学習分析ソリューションの開発。",
+                "srv3-title": "高度なサイバーセキュリティ", "srv3-desc": "包括的なセキュリティ監査、侵入テスト、堅牢な防御プロトコルの展開、および高度なデータガバナンス戦略。",
+                "srv4-title": "フィンテック＆暗号資産", "srv4-desc": "統合デジタル決済インフラの開発、スマートコントラクトの統合、およびブロックチェーン技術に基づく金融ソリューション。",
+                "srv5-title": "ITエリートトレーニング", "srv5-desc": "企業IT部門向けの短期集中型能力開発プログラム。クラウドネイティブ技術と最新エンジニアリングに焦点を当てます。",
+                "blog-title": "テックブログ＆セネガルの展望",
+                "blog1-cat": "人工知能", "blog1-title": "農業AI：セネガル川流域の農業に革命を起こす", "blog1-desc": "稲作の灌漑と管理を最適化するための、接続されたセンサーと予測アルゴリズムの統合に関する技術的分析。",
+                "blog2-cat": "デジタル主権", "blog2-title": "ローカルクラウドインフラ：国家の独立に向けたマイルストーン", "blog2-desc": "近接ホスティングと物理インフラの完全な制御が、真の技術的独立の基盤である理由。",
+                "side1-cat": "フィンテック", "side1-title": "西アフリカにおけるクロスボーダー決済の構造的急成長。",
+                "side2-cat": "サイバーセキュリティ", "side2-title": "最近のランサムウェアの脅威からセネガルの中小企業を保護する戦略。",
+                "side3-cat": "エコシステム", "side3-title": "ダカール・テックハブ：今年度のテクノロジー投資マッピング。",
+                "read-more": "記事を読む",
+                "events-title": "2026年度 主要テクノロジーイベント一覧",
+                "th-date": "期間", "th-event": "イベント", "th-location": "開催地", "th-topic": "中心テーマ", "th-status": "状況",
+                "ev1-topic": "技術の融合と高成長新興市場への資本配分",
+                "ev2-topic": "デジタルクリエイティビティ、Web3インフラ、および協調型AIレイヤー",
+                "ev3-topic": "データガバナンス、ハイパースケールクラウドセキュリティ、およびアフリカの継続性",
+                "ev4-topic": "暗号資産のポリシーフレームワーク、制度的金融包摂、および分散型ノード"
+            },
+            ar: {
+                "nav-home": "الرئيسية", "nav-services": "خدماتنا", "nav-blog": "المدونة الرقمية", "nav-events": "الفعاليات",
+                "hero-title": "المنظومة الرقمية للغد، <br><span class='lightning-text'>تنطلق من السنغال</span>",
+                "hero-desc": "نحن نبني بنيات برمجية متطورة، وحلول ذكاء اصطناعي مخصصة، وأنظمة دفاع سيبراني مرنة ذات تميز دولي.",
+                "hero-btn": "استكشف حلولنا",
+                "services-title": "مجالات الخبرة المتخصصة",
+                "srv1-title": "هندسة البرمجيات والويب", "srv1-desc": "بناء وتطوير وصيانة التطبيقات المؤسسية الموزعة، والخدمات المحمولة الأصلية، ومنصات الويب عالية الأداء والاستجابة.",
+                "srv2-title": "الذكاء الاصطناعي", "srv2-desc": "نمذجة الشبكات العصبية المعقدة، ودمج نماذج اللغات الكبيرة (LLM) المتقدمة، وحلول التعلم الآلي التحليلية للواقع الاقتصادي.",
+                "srv3-title": "الأمن السيبراني المتقدم", "srv3-desc": "تدقيق شامل للأمن، واختبارات الاختراق العميقة، ونشر بروتوكولات الدفاع القوية واستراتيجيات حوكمة البيانات.",
+                "srv4-title": "التكنولوجيا المالية والعملات الرقمية", "srv4-desc": "تطوير بنيات تحتية موحدة للمدفوعات الرقمية، ودمج العقود الذكية والحلول المالية القائمة على البلوكشين.",
+                "srv5-title": "تدريب تقنية المعلومات للنخبة", "srv5-desc": "برامج مكثفة لرفع كفاءة إدارات تقنية المعلومات في الشركات حول تقنيات السحاب الأصلية والهندسة الحديثة.",
+                "blog-title": "المدونة التقنية وآفاق السنغال",
+                "blog1-cat": "الذكاء الاصطناعي", "blog1-title": "الذكاء الاصطناعي الزراعي: ثورة في وادي نهر السنغال", "blog1-desc": "تحليل تقني لدمج أجهزة الاستشعار المتصلة والخوارزميات التنبؤية لتحسين الري وإدارة زراعة الأرز.",
+                "blog2-cat": "السيادة الرقمية", "blog2-title": "البنية التحتية السحابية المحلية: ركيزة الاستقلال الوطني", "blog2-desc": "لماذا تعد الاستضافة الإقليمية والتحكم المادي الكامل في البنية التحتية حجر الزاوية لاستقلالنا التكنولوجي الحقيقي.",
+                "side1-cat": "FinTech", "side1-title": "النمو الهيكلي للمدفوعات الرقمية عبر الحدود في غرب أفريقيا.",
+                "side2-cat": "الأمن السيبراني", "side2-title": "حماية الشركات الصغيرة والمتوسطة السنغالية من هجمات برامج الفدية الأخيرة.",
+                "side3-cat": "المنظومة الرقمية", "side3-title": "حاضنة داكار التقنية: رسم خرائط الاستثمارات الرأسمالية لهذا العام.",
+                "read-more": "اقرأ المقال كاملًا",
+                "events-title": "أبرز الفعاليات التكنولوجية لعام 2026",
+                "th-date": "الفترة", "th-event": "الفعالية", "th-location": "الموقع", "th-topic": "المحور الرئيسي", "th-status": "الحالة",
+                "ev1-topic": "التقارب التكنولوجي وتخصيص رؤوس الأموال في الأسواق الناشئة",
+                "ev2-topic": "الإبداع الرقمي، بنيات Web3 التحتية، والذكاء الاصطناعي التعاوني",
+                "ev3-topic": "حوكمة البيانات، أمن السحاب الضخم والسيادة الرقمية الأفريقية",
+                "ev4-topic": "أطر سياسات الأصول الرقمية، الشمول المالي النظمي، والخدمات المصرفية عبر الهاتف"
+            }
+        };
+
+        // INTERACTIVITÉ DES LANGUES ET DIRECTION DE TEXTE (RTL)
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', (e) => {
+            const currentLang = e.target.value;
+            
+            if (currentLang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.removeAttribute('dir');
+            }
+
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const translationKey = element.getAttribute('data-lang');
+                if (dictionary[currentLang] && dictionary[currentLang][translationKey]) {
+                    element.innerHTML = dictionary[currentLang][translationKey];
+                }
+            });
+        });
+
+        // GESTION DYNAMIQUE DU THÈME (CORRIGÉ : LES SÉLECTEURS PRENNENT LES COULEURS CSS VARIABLES)
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            if (activeTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+            }
+        });
+
+        // MENU RESPONSIVE MOBILES (HAMBURGER)
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.className = 'fas fa-xmark';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+    </script>
+</body>
+</html>
